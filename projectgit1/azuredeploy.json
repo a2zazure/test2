@@ -2,7 +2,43 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {},
-  "variables": {},
-  "resources": [],
+  "variables": {
+    "gittestvnetPrefix": "10.0.0.0/16",
+    "gittestvnetSubnet1Name": "Subnet-1",
+    "gittestvnetSubnet1Prefix": "10.0.0.0/24",
+    "gittestvnetSubnet2Name": "Subnet-2",
+    "gittestvnetSubnet2Prefix": "10.0.1.0/24"},
+  "resources": [
+    {
+      "name": "gittestvnet",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-03-30",
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "gittestvnet"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('gittestvnetPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('gittestvnetSubnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('gittestvnetSubnet1Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('gittestvnetSubnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('gittestvnetSubnet2Prefix')]"
+            }
+          }
+        ]
+      }
+    }],
   "outputs": {}
 }
